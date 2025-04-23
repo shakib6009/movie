@@ -1,0 +1,39 @@
+import requests
+from bs4 import BeautifulSoup
+from telegram import Update
+from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, filters, ContextTypes
+
+BOT_TOKEN = "8004497086:AAGGgN2EVBN3MelEPCmJTcRwzyNNvCUXaEs"  # এখানে আপনার টেলিগ্রাম বট টোকেন বসান
+
+async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text("Welcome! Just send me a movie name.")
+
+async def search_movie(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    query = update.message.text.strip()
+    search_url = f"https://movie.banglafilx.com/?s={query}"
+    try:
+        res = requests.get(search_url)
+        soup = BeautifulSoup(res.text, 'html.parser')
+        
+        # প্রথম মুভির টাইটেল ও লিংক বের করা
+        first_result = soup.find('a', href=True, text=True)
+        if first_result:
+            title = first_result.text.strip()
+            link = first_result['href']
+            await update.message.reply_text(f"Found: {title}
+{link}")
+        else:
+            await update.message.reply_text("Sorry, no result found.")
+
+    except Exception as e:
+        await update.message.reply_text("Something went wrong.")
+        print("Error:", e)
+
+if __name__ == '__main__':
+    app = ApplicationBuilder().token(BOT_TOKEN).build()
+
+    app.add_handler(CommandHandler("start", start))
+    app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, search_movie))
+
+    print("Bot is running...")
+    app.run_polling()
