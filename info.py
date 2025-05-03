@@ -15,7 +15,7 @@ def is_enabled(value, default):
 SESSION = environ.get('SESSION', 'Media_search')
 API_ID = int(environ.get('API_ID', '23733855'))
 API_HASH = environ.get('API_HASH', '541afa01a117d5e60880795b356da6e1')
-BOT_TOKEN = environ.get('BOT_TOKEN', '8004497086:AAGGgN2EVBN3MelEPCmJTcRwzyNNvCUXaEs')
+BOT_TOKEN = environ.get('BOT_TOKEN', '7535439008:AAFYXGLjbanDwTAatoBg3ILPQUcqgKVt2MM')
 #---------------------------------------------------------------
 #---------------------------------------------------------------
 ADMINS = [int(admin) if id_pattern.search(admin) else admin for admin in environ.get('ADMINS', '6441511288').split()]
@@ -27,7 +27,7 @@ CHANNELS = [int(ch) if id_pattern.search(ch) else ch for ch in environ.get('CHAN
 #---------------------------------------------------------------
 DATABASE_URI = environ.get('DATABASE_URI', "u320501260_Movie")
 DATABASE_NAME = environ.get('DATABASE_NAME', "u320501260_Movie")
-COLLECTION_NAME = environ.get('COLLECTION_NAME', 'Telegram_files')
+COLLECTION_NAME = environ.get('COLLECTION_NAME', 'website_link')
 #---------------------------------------------------------------
 #---------------------------------------------------------------
 #----------- There will be channel id add in all these ---------
